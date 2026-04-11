@@ -1,4 +1,6 @@
-# 🚆 Railway System Database Management System
+<h1 align="center">
+   🚆 Railway System Database Management System
+</h1>
 
 <p align="center">
   <b>A complete DBMS project implementing real-world railway operations using SQL</b>
