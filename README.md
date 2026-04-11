@@ -1,12 +1,11 @@
-<h1 align="center">
-   🚆 Railway System Database Management System
-</h1>
 
-<p align="center">
+<h1>🚆 Railway System Database Management System</h1>
+
+<p>
   <b>A complete DBMS project implementing real-world railway operations using SQL</b>
 </p>
 
-<p align="center">
+<p>
   💾 MySQL • 🧠 DBMS Concepts • 📊 SQL Queries • ⚙️ Views • 🔗 Relationships
 </p>
 
