@@ -1,5 +1,4 @@
-from dotenv import load_dotenv
-load_dotenv()
+
 from decimal import Decimal
 from flask import Flask, render_template
 import mysql.connector
