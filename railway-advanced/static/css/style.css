@@ -23,3 +23,117 @@ body {
 .table th {
     vertical-align: middle;
 }
+
+/* GENERAL */
+body {
+    background-color: #f5f7fa;
+}
+
+/* CARD DESIGN */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* BUTTONS */
+.btn {
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #0b5ed7, #084298);
+}
+
+/* TABLES */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* FORMS */
+.form-control {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+}
+
+/* BADGES */
+.badge {
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+/* HEADINGS */
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+/* SMALL SPACING HELPERS */
+.section-title {
+    margin-bottom: 20px;
+}
+
+/* DASHBOARD STATS CARDS */
+.stats-card {
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    transition: 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+/* Different colors for variety */
+.stats-card:nth-child(1) { background: linear-gradient(135deg, #0d6efd, #0b5ed7); }
+.stats-card:nth-child(2) { background: linear-gradient(135deg, #198754, #157347); }
+.stats-card:nth-child(3) { background: linear-gradient(135deg, #fd7e14, #e8590c); }
+.stats-card:nth-child(4) { background: linear-gradient(135deg, #6f42c1, #5936a2); }
+
+
+/* TABLE IMPROVEMENT */
+.table th {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* BADGE LOOK */
+.badge {
+    font-size: 13px;
+    padding: 6px 10px;
+}
+
+/* MONEY HIGHLIGHT */
+.text-success {
+    font-weight: 600;
+}
+

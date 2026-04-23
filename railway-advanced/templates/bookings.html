@@ -1,40 +1,57 @@
 {% extends 'base.html' %}
-{% block title %}Bookings | Advanced Railway Management System{% endblock %}
+{% block title %}Bookings | Railway System{% endblock %}
 
 {% block content %}
+
 <div class="mb-4">
-    <h1 class="h3 mb-1">Booking Details</h1>
-    <p class="text-secondary mb-0">Data sourced from <code>Booking_Details</code> view.</p>
+    <h1 class="fw-semibold mb-1">Booking Details</h1>
+    <p class="text-muted mb-0">Data from Booking Details view.</p>
 </div>
 
-<div class="table-responsive card border-0 shadow-sm">
-    <table class="table table-hover align-middle mb-0">
-        <thead class="table-dark">
-            <tr>
-                <th>Passenger Name</th>
-                <th>Train Name</th>
-                <th>Booking Date</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for row in booking_details %}
-            <tr>
-                <td>{{ row.Passenger_Name }}</td>
-                <td>{{ row.Train_Name }}</td>
-                <td>{{ row.Booking_Date }}</td>
-                <td>
-                    <span class="badge rounded-pill {% if row.Booking_Status|lower == 'confirmed' %}text-bg-success{% elif row.Booking_Status|lower == 'cancelled' %}text-bg-danger{% else %}text-bg-warning{% endif %}">
-                        {{ row.Booking_Status }}
-                    </span>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4" class="text-center py-4 text-secondary">No booking records found.</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="card p-3 border-0 shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+
+            <thead>
+                <tr>
+                    <th>Passenger</th>
+                    <th>Train</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for row in booking_details %}
+                <tr>
+                    <td class="fw-medium">{{ row.name }}</td>
+                    <td>{{ row.train_name }}</td>
+                    <td>{{ row.booking_date }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if row.status|lower == 'booked' %}
+                                bg-success
+                            {% elif row.status|lower == 'cancelled' %}
+                                bg-danger
+                            {% else %}
+                                bg-warning text-dark
+                            {% endif %}
+                        ">
+                            {{ row.status }}
+                        </span>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center py-4 text-muted">
+                        No booking records found 🚫
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
 </div>
+
 {% endblock %}

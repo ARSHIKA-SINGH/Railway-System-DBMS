@@ -1,86 +1,100 @@
 {% extends 'base.html' %}
-{% block title %}Analytics | Advanced Railway Management System{% endblock %}
+{% block title %}Analytics | Railway System{% endblock %}
 
 {% block content %}
+
 <div class="mb-4">
-    <h1 class="h3 mb-1">Analytics</h1>
-    <p class="text-secondary mb-0">Advanced SQL insights using aggregations, grouping, and subqueries.</p>
+    <h1 class="fw-semibold mb-1">Analytics</h1>
+    <p class="text-muted mb-0">Insights using SQL (Aggregations, GROUP BY, Subqueries)</p>
 </div>
 
+<!-- STATS -->
 <div class="row g-4 mb-4">
+
     <div class="col-md-6">
-        <div class="card border-0 shadow-sm h-100">
+        <div class="card stats-card text-white h-100">
             <div class="card-body">
-                <p class="small text-uppercase text-secondary mb-2">Average Fare</p>
-                <h2 class="display-6 mb-0">₹{{ '%.2f'|format(fare_stats.avg_fare) }}</h2>
+                <p class="small opacity-75 mb-2">Average Fare</p>
+                <h2 class="fw-bold">₹{{ '%.2f'|format(fare_stats.avg_fare) }}</h2>
             </div>
         </div>
     </div>
+
     <div class="col-md-6">
-        <div class="card border-0 shadow-sm h-100">
+        <div class="card stats-card text-white h-100">
             <div class="card-body">
-                <p class="small text-uppercase text-secondary mb-2">Total Fare</p>
-                <h2 class="display-6 mb-0">₹{{ '%.2f'|format(fare_stats.total_fare) }}</h2>
+                <p class="small opacity-75 mb-2">Total Fare</p>
+                <h2 class="fw-bold">₹{{ '%.2f'|format(fare_stats.total_fare) }}</h2>
             </div>
         </div>
     </div>
+
 </div>
 
-<div class="card border-0 shadow-sm mb-4">
-    <div class="card-header bg-white py-3">
-        <h3 class="h5 mb-0">Train-wise Bookings (GROUP BY)</h3>
-    </div>
+<!-- GROUP BY -->
+<div class="card p-3 border-0 shadow-sm mb-4">
+    <h5 class="fw-semibold mb-3">Train-wise Bookings</h5>
+
     <div class="table-responsive">
-        <table class="table table-striped align-middle mb-0">
-            <thead class="table-dark">
+        <table class="table table-hover align-middle">
+
+            <thead>
                 <tr>
-                    <th>Train Name</th>
+                    <th>Train ID</th>
                     <th>Total Bookings</th>
                 </tr>
             </thead>
+
             <tbody>
             {% for row in train_wise_bookings %}
                 <tr>
-                    <td>{{ row.Train_Name }}</td>
-                    <td>{{ row.booking_count }}</td>
+                    <td>#{{ row.train_id }}</td>
+                    <td class="fw-semibold">{{ row.total_bookings }}</td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="2" class="text-center py-4 text-secondary">No grouped booking data found.</td>
+                    <td colspan="2" class="text-center py-4 text-muted">
+                        No data found 📊
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
+
         </table>
     </div>
 </div>
 
-<div class="card border-0 shadow-sm">
-    <div class="card-header bg-white py-3">
-        <h3 class="h5 mb-0">Passengers Who Booked Rajdhani Express (SUBQUERY)</h3>
-    </div>
+<!-- SUBQUERY -->
+<div class="card p-3 border-0 shadow-sm">
+    <h5 class="fw-semibold mb-3">Rajdhani Express Passengers</h5>
+
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-dark">
+        <table class="table table-hover align-middle">
+
+            <thead>
                 <tr>
-                    <th>Passenger Name</th>
-                    <th>Contact Number</th>
-                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Phone</th>
                 </tr>
             </thead>
+
             <tbody>
             {% for row in rajdhani_passengers %}
                 <tr>
-                    <td>{{ row.Passenger_Name }}</td>
-                    <td>{{ row.Contact_Number }}</td>
-                    <td>{{ row.Email }}</td>
+                    <td class="fw-medium">{{ row.name }}</td>
+                    <td>{{ row.phone }}</td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3" class="text-center py-4 text-secondary">No Rajdhani Express passengers found.</td>
+                    <td colspan="2" class="text-center py-4 text-muted">
+                        No passengers found 🚆
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
+
         </table>
     </div>
 </div>
+
 {% endblock %}

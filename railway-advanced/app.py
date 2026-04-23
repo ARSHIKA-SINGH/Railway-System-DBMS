@@ -1,9 +1,11 @@
+from dotenv import load_dotenv
+load_dotenv()
 from decimal import Decimal
-
 from flask import Flask, render_template
 import mysql.connector
-
 from config import Config
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -37,6 +39,7 @@ def to_float(value):
     return float(value)
 
 
+# ---------------- DASHBOARD ----------------
 @app.route("/")
 @app.route("/dashboard")
 def dashboard():
@@ -45,8 +48,8 @@ def dashboard():
         SELECT
             (SELECT COUNT(*) FROM Booking) AS total_bookings,
             (SELECT COUNT(*) FROM Passenger) AS total_passengers,
-            (SELECT COALESCE(SUM(Fare), 0) FROM Ticket) AS total_revenue,
-            (SELECT COALESCE(MAX(Fare), 0) FROM Ticket) AS highest_fare
+            (SELECT COALESCE(SUM(fare), 0) FROM Ticket) AS total_revenue,
+            (SELECT COALESCE(MAX(fare), 0) FROM Ticket) AS highest_fare
         """,
         fetchone=True,
     )
@@ -57,79 +60,83 @@ def dashboard():
     return render_template("dashboard.html", metrics=metrics)
 
 
+# ---------------- BOOKINGS ----------------
 @app.route("/bookings")
 def bookings():
     booking_details = execute_query(
         """
-        SELECT Passenger_Name, Train_Name, Booking_Date, Booking_Status
+        SELECT name, train_name, booking_date, status
         FROM Booking_Details
-        ORDER BY Booking_Date DESC
+        ORDER BY booking_date DESC
         """
     )
     return render_template("bookings.html", booking_details=booking_details)
 
 
+# ---------------- TICKETS ----------------
 @app.route("/tickets")
 def tickets():
     ticket_info = execute_query(
         """
-        SELECT Booking_ID, Train_Name, Seat_Number, Coach_Number, Fare
+        SELECT booking_id, train_name, seat_number, coach_number, fare
         FROM Ticket_Info
-        ORDER BY Booking_ID
+        ORDER BY booking_id
         """
     )
     return render_template("tickets.html", ticket_info=ticket_info)
 
 
+# ---------------- ROUTES ----------------
 @app.route("/routes")
 def routes():
     route_details = execute_query(
         """
-        SELECT Train_Name, Station_Name, Arrival_Time, Departure_Time
+        SELECT train_name, station_name, arrival_time, departure_time
         FROM Route_Details
-        ORDER BY Train_Name, Arrival_Time
+        ORDER BY train_name, arrival_time
         """
     )
     return render_template("routes.html", route_details=route_details)
 
 
+# ---------------- ANALYTICS ----------------
 @app.route("/analytics")
 def analytics():
+
+    # Fare stats
     fare_stats = execute_query(
         """
         SELECT
-            COALESCE(AVG(Fare), 0) AS avg_fare,
-            COALESCE(SUM(Fare), 0) AS total_fare
+            COALESCE(AVG(fare), 0) AS avg_fare,
+            COALESCE(SUM(fare), 0) AS total_fare
         FROM Ticket
         """,
         fetchone=True,
     )
 
+    # Train-wise bookings
     train_wise_bookings = execute_query(
         """
-        SELECT tr.Train_Name, COUNT(*) AS booking_count
-        FROM Booking b
-        JOIN Train tr ON b.Train_ID = tr.Train_ID
-        GROUP BY tr.Train_ID, tr.Train_Name
-        ORDER BY booking_count DESC, tr.Train_Name ASC
+        SELECT train_id, COUNT(*) AS total_bookings
+        FROM Booking
+        GROUP BY train_id
+        ORDER BY total_bookings DESC
         """
     )
 
+    # Rajdhani passengers (FIXED)
     rajdhani_passengers = execute_query(
         """
-        SELECT p.Passenger_Name, p.Contact_Number, p.Email
-        FROM Passenger p
-        WHERE p.Passenger_ID IN (
-            SELECT b.Passenger_ID
-            FROM Booking b
-            WHERE b.Train_ID = (
-                SELECT Train_ID
-                FROM Train
-                WHERE Train_Name = 'Rajdhani Express'
-                LIMIT 1
+        SELECT name, phone
+        FROM Passenger
+        WHERE passenger_id IN (
+            SELECT passenger_id FROM Booking
+            WHERE train_id = (
+                SELECT train_id FROM Train
+                WHERE train_name = 'Rajdhani Express'
             )
         )
-        ORDER BY p.Passenger_Name
+        ORDER BY name
         """
     )
 
