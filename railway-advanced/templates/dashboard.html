@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | Advanced Railway Management System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Dashboard</h1>
+        <p class="text-secondary mb-0">Overview of railway booking and revenue performance.</p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-sm-6 col-xl-3">
+        <div class="card stats-card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <p class="small text-uppercase text-secondary mb-2">Total Bookings</p>
+                <h2 class="display-6 mb-0">{{ metrics.total_bookings }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card stats-card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <p class="small text-uppercase text-secondary mb-2">Total Passengers</p>
+                <h2 class="display-6 mb-0">{{ metrics.total_passengers }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card stats-card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <p class="small text-uppercase text-secondary mb-2">Total Revenue</p>
+                <h2 class="display-6 mb-0">₹{{ '%.2f'|format(metrics.total_revenue) }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <div class="card stats-card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <p class="small text-uppercase text-secondary mb-2">Highest Fare</p>
+                <h2 class="display-6 mb-0">₹{{ '%.2f'|format(metrics.highest_fare) }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
