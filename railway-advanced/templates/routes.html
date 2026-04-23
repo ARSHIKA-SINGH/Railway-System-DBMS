@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Routes | Advanced Railway Management System{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="h3 mb-1">Route Details</h1>
+    <p class="text-secondary mb-0">Data sourced from <code>Route_Details</code> view.</p>
+</div>
+
+<div class="table-responsive card border-0 shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Train Name</th>
+                <th>Station Name</th>
+                <th>Arrival Time</th>
+                <th>Departure Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in route_details %}
+            <tr>
+                <td>{{ row.Train_Name }}</td>
+                <td>{{ row.Station_Name }}</td>
+                <td>{{ row.Arrival_Time }}</td>
+                <td>{{ row.Departure_Time }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center py-4 text-secondary">No route records found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

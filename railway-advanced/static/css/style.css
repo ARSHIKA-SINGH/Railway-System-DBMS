@@ -1,0 +1,25 @@
+body {
+    background: linear-gradient(180deg, #f8f9fb 0%, #eef2f7 100%);
+    min-height: 100vh;
+}
+
+.navbar-brand {
+    letter-spacing: 0.3px;
+}
+
+.stats-card {
+    border-left: 4px solid #0d6efd;
+}
+
+.card {
+    border-radius: 0.9rem;
+}
+
+.table thead th {
+    font-weight: 600;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}

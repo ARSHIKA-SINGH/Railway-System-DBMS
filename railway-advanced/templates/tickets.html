@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Tickets | Advanced Railway Management System{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="h3 mb-1">Ticket Details</h1>
+    <p class="text-secondary mb-0">Data sourced from <code>Ticket_Info</code> view.</p>
+</div>
+
+<div class="table-responsive card border-0 shadow-sm">
+    <table class="table table-striped align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Booking ID</th>
+                <th>Train Name</th>
+                <th>Seat Number</th>
+                <th>Coach Number</th>
+                <th>Fare</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in ticket_info %}
+            <tr>
+                <td>{{ row.Booking_ID }}</td>
+                <td>{{ row.Train_Name }}</td>
+                <td>{{ row.Seat_Number }}</td>
+                <td>{{ row.Coach_Number }}</td>
+                <td>₹{{ '%.2f'|format(row.Fare) }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center py-4 text-secondary">No ticket records found.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
